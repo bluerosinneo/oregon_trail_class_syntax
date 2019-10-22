@@ -1,56 +1,63 @@
 (function(){
     console.log("hi");
 
-    function Traveler(name){
-        this.name = name;
-        this.food = 1;
-        this.isHealthy = true;
-    }
-
-    Traveler.prototype.hunt = function(){
-        this.food = this.food + 2;
-    };
-    Traveler.prototype.eat = function(){
-        if(this.food >= 1){
-            this.food = this.food - 1;
+    class Traveler{
+        constructor(name){
+            this.name = name;
+            this.food = 1;
+            this.isHealthy = true;
         }
-        else{
-            this.isHealthy = false;
+
+        hunt(){
+            this.food = this.food + 2;
         }
-    };
-
-    
-
-    function Wagon(capacity){
-        this.capacity = capacity;
-        this.passengers = [];
-
-    }
-
-    Wagon.prototype.getAvailableSeatCount = function(){
-        return this.capacity - this.passengers.length;
-    };
-    Wagon.prototype.join = function(traveler){
-        if(this.getAvailableSeatCount() > 0){
-            this.passengers.push(traveler);
-        }
-    };
-    Wagon.prototype.shouldQuarantine = function(){
-        let quarantine = false;
-        for(let i = 0; i < this.passengers.length; i++){
-            if(this.passengers[i].isHealthy == false){
-                quarantine = true;
+        eat(){
+            if(this.food >= 1){
+                this.food = this.food - 1;
+            }
+            else{
+                this.isHealthy = false;
             }
         }
-        return quarantine;
-    };
-    Wagon.prototype.totalFood = function(){
-        let food = 0;
-        for(let i = 0; i < this.passengers.length; i++){
-            food = food + this.passengers[i].food;
+
+    }
+
+
+    class Wagon{
+
+        constructor(capacity){
+            this.capacity = capacity;
+            this.passengers = [];
         }
-        return food;
-    };
+
+        getAvailableSeatCount(){
+            return this.capacity - this.passengers.length;
+        }
+        join(traveler){
+            if(this.getAvailableSeatCount() > 0){
+                this.passengers.push(traveler);
+            }
+        }
+        shouldQuarantine(){
+            let quarantine = false;
+            for(let i = 0; i < this.passengers.length; i++){
+                if(this.passengers[i].isHealthy == false){
+                    quarantine = true;
+                }
+            }
+            return quarantine;
+        }
+        totalFood(){
+            let food = 0;
+            for(let i = 0; i < this.passengers.length; i++){
+                food = food + this.passengers[i].food;
+            }
+            return food;
+        }
+
+    }
+
+    
 
     // Create a wagon that can hold 2 people
     let wagon = new Wagon(2);
